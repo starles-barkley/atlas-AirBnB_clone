@@ -10,7 +10,7 @@ class BaseModel:
 
     def __str__(self):
         return "[{}] ({}) {}".format(
-            type(self.name), self.id, self.__dict__)
+            type(self).__name__, self.id, self.__dict__)
 
     def save(self):
         return self.updated_at
