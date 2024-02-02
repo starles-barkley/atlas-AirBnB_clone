@@ -14,9 +14,8 @@ class BaseModel:
                     self.updated_at = datetime.fromisoformat(value)
         else:
             self.id = str(uuid.uuid4())
-            current_time = datetime.now()
-            self.created_at = current_time.isoformat()
-            self.updated_at = current_time.isoformat()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         return "[{}] ({}) {}".format(
