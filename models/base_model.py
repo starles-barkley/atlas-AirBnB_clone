@@ -3,6 +3,7 @@
 define BaseModel class that defines attributes/methods
 """
 import uuid
+from models.__init__ import storage
 from datetime import datetime
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
