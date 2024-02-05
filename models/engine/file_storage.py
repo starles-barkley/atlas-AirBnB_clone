@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import json
-import os
+from os.path import isfile
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from models.base_model import BaseModel
@@ -19,11 +19,17 @@ class FileStorage:
         self.__objects[key] = obj
 
     def save(self):
-        json_save = json.dumps(self.__objects)
-        with open(self.__class__.__file_path, 'w') as file:
-            file.write(json_save)
+        with open(self.__file_path, 'w') as file:
+            obj_dict = {key: obj.to_dict() for key, obj in self.__objects.items()}
+            json.dump(obj_dict, file)
 
     def reload(self):
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, mode = 'r') as file:
-                self.__objects = json.load(file)
+        try:
+            with open(self.__file_path, 'r') as file:
+                obj_dict = json.load(file)
+                for key, value in obj_dict.items():
+                    class_name, obj_id = key.split('.')
+                    obj_instance = eval(class_name)(**value)
+                    self.__objects[key] = obj_instance
+        except FileNotFoundError:
+            pass
