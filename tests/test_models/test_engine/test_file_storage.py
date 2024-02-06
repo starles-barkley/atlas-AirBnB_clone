@@ -50,7 +50,8 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(my_model)
 
         # Save the objects to the file
-        self.storage.save()
+        with patch('builtins.input', return_value='yes'):
+            self.storage.save()
 
         # Clear the objects from storage
         self.storage.__objects = {}
