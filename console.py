@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-import cmd
 """ module for python command line interpreter """
+import cmd
+
+
 class HBNBCommand(cmd.Cmd):
     """ class initiates command loop"""
     prompt = '(hbnb)'
