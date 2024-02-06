@@ -1,4 +1,5 @@
 import unittest
+import json
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
@@ -17,16 +18,16 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn('BaseModel.{}'.format(my_model.id), self.storage.all())
 
     def test_save_method(self):
-        #Check if save method writes to file
+        # Check if save method writes to file
         my_model = BaseModel()
         self.storage.new(my_model)
         self.storage.save()
-        
-        #Read the file and check if object is saved
-        with open(self.storage.__file_path, 'r') as file:
+
+        # Read the file and check if the object is saved
+        with open(self.storage._FileStorage__file_path, 'r') as file:
             data = json.load(file)
             self.assertIn('BaseModel.{}'.format(my_model.id), data)
-            
+
     def test_reload_method(self):
         # Ensure reload method loads objects from file
         my_model = BaseModel()
@@ -40,7 +41,6 @@ class TestFileStorage(unittest.TestCase):
 
         # Check if the reloaded object is present
         self.assertIn('BaseModel.{}'.format(my_model.id), self.storage.all())
-    
-    if __name__ == '__main__':
+
+if __name__ == '__main__':
     unittest.main()
-    
