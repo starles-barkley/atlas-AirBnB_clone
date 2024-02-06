@@ -15,3 +15,15 @@ class TestFileStorage(unittest.TestCase):
         my_model = BaseModel()
         self.storage.new(my_model)
         self.assertIn('BaseModel.{}'.format(my_model.id), self.storage.all())
+
+    def test_save_method(self):
+        #Check if save method writes to file
+        my_model = BaseModel()
+        self.storage.new(my_model)
+        self.storage.save()
+        
+        #Read the file and check if object is saved
+        with open(self.storage.__file_path, 'r') as file:
+            data = json.load(file)
+            self.assertIn('BaseModel.{}'format(my_model.id), data)
+        
