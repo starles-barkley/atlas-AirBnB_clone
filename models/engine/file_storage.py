@@ -19,11 +19,12 @@ class FileStorage:
         self.__objects[key] = obj
 
     def save(self):
-        json_save = json.dumps(self.__objects)
-        with open(self.__class__.__file_path, 'w') as file:
-            file.write(json_save)
+        with open(self.__file_path, 'w') as file:
+            obj_dict = {key: obj.to_dict() for key, obj in self.__objects.items()}
+            json.dump(obj_dict, file)
 
     def reload(self):
+        from models.base_model import BaseModel
         try:
             with open(self.__file_path, 'r') as file:
                 obj_dict = json.load(file)
