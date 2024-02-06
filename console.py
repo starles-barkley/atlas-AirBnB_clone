@@ -7,6 +7,11 @@ from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
 from models.state import State
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.amenity import Amenity
+
 
 class HBNBCommand(cmd.Cmd):
 	"""
@@ -122,6 +127,38 @@ class HBNBCommand(cmd.Cmd):
 		else:
 			print ("** no instances found **")
 
-
+	def do_update(self, arg):
+		objs = storage.all()
+		args = arg.split()
+		if len(args) >=4:
+			class_name = args[0]
+			obj_id = args[1]
+			attribute = args[2]
+			value = args[3]
+			module = importlib.import_module('models.base_model')
+			_class = getattr(module, class_name)
+			if _class:
+				if obj_id in objs:
+					if attribute not in ['id', 'created_at', 'updated_at']:
+						if hasattr(objs[obj_id], attribute):
+							atty_type = type(getattr(objs[obj_id], attribute))
+							new_value = atty_type(value)
+							setattr(objs[obj_id], attribute, new_value)
+						else:
+							print("** attribute name missing **")
+					else:
+						print("** attribute cannot be updated **")
+				else:
+					print("** no instance found **")
+			else:
+				print("** class doesn't exist **")
+		elif len(args) == 3:
+			print("** value missing **")
+		elif len(args) == 2:
+			print("** attribute name missing **")
+		elif len(args) == 1:
+			print("** instance id missing **")
+		else:
+			print("** class name missing **")
 if __name__ == '__main__':
 	HBNBCommand().cmdloop()
