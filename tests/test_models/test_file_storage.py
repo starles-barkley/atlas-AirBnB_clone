@@ -24,7 +24,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
 
         # Read the file and check if the object is saved
-        with open(self.storage.__file_path, 'r') as file:
+        with open(self.storage._FileStorage__file_path, 'r') as file:
             data = json.load(file)
             self.assertIn('BaseModel.{}'.format(my_model.id), data)
 
