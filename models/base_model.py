@@ -30,12 +30,10 @@ class BaseModel:
             self.updated_at = datetime.now()
             storage.new(self)
 
-    def test_str__(self):
-    expected_output = "[BaseModel] ({}) {}".format(self.my_model.id, self.my_model.__dict__)
-    actual_output = str(self.my_model)
-    print("Expected:", expected_output)
-    print("Actual  :", actual_output)
-    self.assertEqual(actual_output, expected_output)
+    def __str__(self):
+        """ print string representation of created object """
+        return "[{}] ({}) {}".format(
+            type(self).__name__, self.id, self.__dict__)
 
     def save(self):
         from models import storage

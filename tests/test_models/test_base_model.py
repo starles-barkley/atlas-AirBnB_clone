@@ -12,5 +12,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(self.my_model, 'updated_at'))
 
     def test_str__(self):
-        expected_output = f"[{type(self.my_model).__name__}] ({self.my_model.id}) ({self.my_model.__dict__})"
-        self.assertEqual(str(self.my_model), expected_output)
+    expected_output = "[BaseModel] ({}) {}".format(self.my_model.id, self.my_model.__dict__)
+    actual_output = str(self.my_model)
+    print("Expected:", expected_output)
+    print("Actual  :", actual_output)
+    self.assertEqual(actual_output, expected_output)
