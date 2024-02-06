@@ -40,3 +40,7 @@ class TestFileStorage(unittest.TestCase):
 
         # Check if the reloaded object is present
         self.assertIn('BaseModel.{}'.format(my_model.id), self.storage.all())
+    
+    if __name__ == '__main__':
+    unittest.main()
+    
