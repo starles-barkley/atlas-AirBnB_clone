@@ -24,7 +24,7 @@ class FileStorage:
             file.write(json_save)
 
     def reload(self):
-          try:
+        try:
             with open(self.__file_path, 'r') as file:
                 obj_dict = json.load(file)
                 for key, value in obj_dict.items():
