@@ -14,6 +14,3 @@ class TestBaseModel(unittest.TestCase):
     def test_str__(self):
         expected_output = f"[{type(self.my_model).__name__}] ({self.my_model.id}) ({self.my_model.__dict__})"
         self.assertEqual(str(self.my_model), expected_output)
-
-    def test_save(self):
-        
