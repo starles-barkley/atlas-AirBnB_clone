@@ -5,7 +5,8 @@ import sys
 import importlib
 from models.base_model import BaseModel
 from models.__init__ import storage
-
+from models.user import User
+from models.state import State
 
 class HBNBCommand(cmd.Cmd):
 	"""
@@ -100,6 +101,26 @@ class HBNBCommand(cmd.Cmd):
 				break
 		else:
 			print ("** no instance found **")
+
+	def do_all(self, arg):
+		args = arg.split()
+		if len(args) < 1:
+			print ("** class name missing **")
+			return
+		class_name = args[0]
+		try:
+			module = importlib.import_module('models.base_model')
+			class_ = getattr(module, class_name)
+		except AttributeError:
+			print ("** class doesn't exist **")
+			return
+		all_obj = storage.all()
+		instances = [obj for key, obj in all_obj.items() if key.split('.')[0] == class_name]
+		if instances:
+			for instance in instances:
+				print (instance)
+		else:
+			print ("** no instances found **")
 
 
 if __name__ == '__main__':
