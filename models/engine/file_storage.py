@@ -2,6 +2,11 @@
 import json
 import os
 from models.user import User
+from models.place import Place
+from models.city import City
+from models.state import State
+from models.review import Review
+from models.amenity import Amenity
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from models.base_model import BaseModel
