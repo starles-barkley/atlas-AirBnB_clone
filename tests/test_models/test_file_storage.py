@@ -25,7 +25,7 @@ class TestFileStorage(unittest.TestCase):
         #Read the file and check if object is saved
         with open(self.storage.__file_path, 'r') as file:
             data = json.load(file)
-            self.assertIn('BaseModel.{}'format(my_model.id), data)
+            self.assertIn('BaseModel.{}'.format(my_model.id), data)
             
     def test_reload_method(self):
         # Ensure reload method loads objects from file
