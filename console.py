@@ -2,8 +2,8 @@
 """ module for python command line interpreter """
 import cmd
 import sys
-import models.base_model import BaseModel
-from models.base_model.__init__ import storage
+from models.base_model import BaseModel
+from models.__init__ import storage
 
 
 class HBNBCommand(cmd.Cmd):
