@@ -24,6 +24,12 @@ class FileStorage:
             file.write(json_save)
 
     def reload(self):
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, mode = 'r') as file:
-                self.__objects = json.load(file)
+          try:
+            with open(self.__file_path, 'r') as file:
+                obj_dict = json.load(file)
+                for key, value in obj_dict.items():
+                    class_name, obj_id = key.split('.')
+                    obj_instance = eval(class_name)(**value)
+                    self.__objects[key] = obj_instance
+        except FileNotFoundError:
+            pass
