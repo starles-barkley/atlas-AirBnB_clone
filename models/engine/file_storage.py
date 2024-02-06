@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import json
 import os
+from models.user import User
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from models.base_model import BaseModel
