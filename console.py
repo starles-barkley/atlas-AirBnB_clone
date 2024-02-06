@@ -23,5 +23,5 @@ class HBNBCommand(cmd.Cmd):
         """ help message for quit method"""
         print("Exit the interpreter")
 
-if __name__ == '_main__':
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
