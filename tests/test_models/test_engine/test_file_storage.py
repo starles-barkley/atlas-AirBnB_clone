@@ -44,5 +44,23 @@ class TestFileStorage(unittest.TestCase):
         # Check if the reloaded object is present
         self.assertIn('BaseModel.{}'.format(my_model.id), self.storage.all())
 
+    def test_save_and_reload_methods(self):
+        # Create an instance of BaseModel and add it to storage
+        my_model = BaseModel()
+        self.storage.new(my_model)
+
+        # Save the objects to the file
+        with patch('builtins.input', return_value='yes'):
+            self.storage.save()
+
+        # Clear the objects from storage
+        self.storage.__objects = {}
+
+        # Reload the objects from the file
+        self.storage.reload()
+
+        # Check if the reloaded object is present
+        self.assertIn('BaseModel.{}'.format(my_model.id), self.storage.all())
+
 if __name__ == '__main__':
     unittest.main()
