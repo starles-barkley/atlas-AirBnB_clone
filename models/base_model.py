@@ -2,6 +2,8 @@
 """
 define BaseModel class that defines attributes/methods
 """
+
+
 import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
