@@ -103,10 +103,7 @@ class HBNBCommand(cmd.Cmd):
 			return
 		class_name = args[0]
 		instance_id = args[1]
-		try:
-			module = importlib.import_module('models.base_model')
-			class_ = getattr(module, class_name)
-		except AttributeError:
+		if class_name not in self.__classes:
 			print("** class doesn't exist **")
 			return
 		all_obj = storage.all()
@@ -114,6 +111,7 @@ class HBNBCommand(cmd.Cmd):
 		for key in all_obj.keys():
 			if key.startswith(key_delete):
 				del all_obj[key]
+				storage.save()
 				break
 		else:
 			print ("** no instance found **")
@@ -140,12 +138,27 @@ class HBNBCommand(cmd.Cmd):
 		"""update instance according to verified input"""
 		objs = storage.all()
 		args = arg.split()
+		if len(args) == 3:
+			print("** value missing **")
+			return
+		if len(args) == 2:
+			print("** attribute name missing **")
+			return
+		if len(args) == 1:
+			print("** instance id missing **")
+			return
+		if len(args) == 0:
+			print("** class doesn't exist **")
+			return
 		if len(args) >=4:
 			class_name = args[0]
 			obj_id = args[1]
 			attribute = args[2]
 			value = args[3]
 			if class_name not in self.__classes:
+				print("** class doesn't exist **")
+				return
+			else:
 				if obj_id in objs:
 					if attribute not in ['id', 'created_at', 'updated_at']:
 						if hasattr(objs[obj_id], attribute):
@@ -162,21 +175,6 @@ class HBNBCommand(cmd.Cmd):
 				else:
 					print("** no instance found **")
 					return
-			else:
-				print("** class doesn't exist **")
-				return
-		elif len(args) == 3:
-			print("** value missing **")
-			return
-		elif len(args) == 2:
-			print("** attribute name missing **")
-			return
-		elif len(args) == 1:
-			print("** instance id missing **")
-			return
-		else:
-			print("** class name missing **")
-			return
 
 if __name__ == '__main__':
 	HBNBCommand().cmdloop()
