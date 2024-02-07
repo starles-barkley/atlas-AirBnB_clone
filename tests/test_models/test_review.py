@@ -9,7 +9,7 @@ class TestReview(unittest.TestCase):
         self.my_review = Review()
 
     def test_attributes_initialization(self):
-        self.assertEqual(self.my_review.name, "")
+        self.assertEqual(self.my_review.text, "")
 
 if __name__ == '__main__':
     unittest.main()
