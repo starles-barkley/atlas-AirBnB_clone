@@ -31,7 +31,7 @@ Available Commands:
 </details>
 
 <details>
-  <summary><b>destroy:<b></summary>
+  <summary><b>destroy:</b></summary>
     <ul>
       <li>Deletes an instance based on the class name and id.</li>
       <ul> <li>Example on command line:</li> 
@@ -39,7 +39,7 @@ Available Commands:
 </details>
 
 <details>
-  <summary><b>all:<b></summary>
+  <summary><b>all:</b></summary>
     <ul>
       <li>Displays the string representations of all instances of a class.</li>
       <ul> <li>Example on command line:</li> 
@@ -47,7 +47,7 @@ Available Commands:
 </details>
 
 <details>
-  <summary><b>update:<b></summary>
+  <summary><b>update:</b></summary>
     <ul>
     <li>Updates an instance based on the class name and id by adding or updating attributes.</li>
      <ul> <li>Example on command line:</li> 
@@ -55,7 +55,7 @@ Available Commands:
   </details>
 
   <details>
-    <summary>quit:</summary>
+    <summary><b>quit:</b></summary>
     <ul>
       <li>Exits the command interpreter.</li>
       <ul> <li>Example on command line:</li> 
