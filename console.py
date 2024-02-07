@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
 
 	def do_all(self, arg):
 		"""print all instances"""
-    args = arg.split()
+		args = arg.split()
 		if len(args) < 1:
 			print ("** class name missing **")
 			return
