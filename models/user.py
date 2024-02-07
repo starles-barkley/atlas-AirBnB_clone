@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""module for User subclass of BaseModel"""
 from models.base_model import BaseModel
 
 class User(BaseModel):

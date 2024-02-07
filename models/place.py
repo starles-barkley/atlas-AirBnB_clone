@@ -1,8 +1,13 @@
 #!/usr/bin/python3
+"""module for Place subclass of BaseModel """
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
+    """initiate instance of City subclass,
+    with public attributes
+    """
     city_id = ""
     user_id = ""
     name = ""

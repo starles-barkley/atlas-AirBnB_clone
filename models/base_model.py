@@ -2,11 +2,14 @@
 """
 define BaseModel class that defines attributes/methods
 """
+
+
 import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from models.engine.file_storage import FileStorage
+
 
 class BaseModel:
     """
@@ -36,10 +39,12 @@ class BaseModel:
             type(self).__name__, self.id, self.__dict__)
 
     def save(self):
+        """save instance"""
         from models import storage
         storage.save()
 
     def to_dict(self): 
+        """ create dictionary for instances"""
         obj_dict = self.__dict__.copy()
         obj_dict["__class__"] = self.__class__.__name__
         obj_dict["created_at"] = self.created_at.isoformat()
