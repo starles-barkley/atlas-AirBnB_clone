@@ -16,6 +16,7 @@ from models.amenity import Amenity
 class HBNBCommand(cmd.Cmd):
 	"""
 	class initiates command loop
+	handles various functions for manipulating objects
 	"""
 	prompt = '(hbnb) '
 
@@ -29,12 +30,15 @@ class HBNBCommand(cmd.Cmd):
 		exit()
 
 	def emptyline(self):
+		"""Empty line"""
 		pass
 
 	def default(self, line: str):
+		"""sanitizes input line and stores it"""
 		self.line = line.strip()
 
 	def input_check(self):
+		""" return sanitized line to check input"""
 		if self.line:
 			return self.line
 		pass
@@ -44,6 +48,7 @@ class HBNBCommand(cmd.Cmd):
 		print("Exit the interpreter")
 
 	def do_create(self, arg):
+		"""Create new instance of BaseModel"""
 		args = arg.split()
 		if len(args) < 1:
 			print("** class name missing **")
@@ -59,6 +64,7 @@ class HBNBCommand(cmd.Cmd):
 			 print("** class doesn't exist **")
 
 	def do_show(self, arg):
+		"""Show string representation of created instance"""
 		args = arg.split()
 		if len(args) < 1:
 			print("**class name missing **")
@@ -83,6 +89,7 @@ class HBNBCommand(cmd.Cmd):
 			print ("** no instance found **")
 
 	def do_destroy(self, arg):
+		"""delete instance"""
 		args = arg.split()
 		if len(args) < 1:
 			print("** class name missing **")
@@ -108,6 +115,7 @@ class HBNBCommand(cmd.Cmd):
 			print ("** no instance found **")
 
 	def do_all(self, arg):
+		"""print all instances"""
 		args = arg.split()
 		if len(args) < 1:
 			print ("** class name missing **")
@@ -128,6 +136,7 @@ class HBNBCommand(cmd.Cmd):
 			print ("** no instances found **")
 
 	def do_update(self, arg):
+		"""update instance according to verified input"""
 		objs = storage.all()
 		args = arg.split()
 		if len(args) >=4:
@@ -144,21 +153,31 @@ class HBNBCommand(cmd.Cmd):
 							atty_type = type(getattr(objs[obj_id], attribute))
 							new_value = atty_type(value)
 							setattr(objs[obj_id], attribute, new_value)
+							objs[obj_id].save()
 						else:
 							print("** attribute name missing **")
+							return
 					else:
 						print("** attribute cannot be updated **")
+						return
 				else:
 					print("** no instance found **")
+					return
 			else:
 				print("** class doesn't exist **")
+				return
 		elif len(args) == 3:
 			print("** value missing **")
+			return
 		elif len(args) == 2:
 			print("** attribute name missing **")
+			return
 		elif len(args) == 1:
 			print("** instance id missing **")
+			return
 		else:
 			print("** class name missing **")
+			return
+
 if __name__ == '__main__':
 	HBNBCommand().cmdloop()
