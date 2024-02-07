@@ -19,6 +19,15 @@ class HBNBCommand(cmd.Cmd):
 	handles various functions for manipulating objects
 	"""
 	prompt = '(hbnb) '
+	__classes = {
+		"BaseModel": BaseModel,
+		"User": User,
+		"State": State,
+		"Place": Place,
+		"City": City,
+		"Amenity": Amenity,
+		"Review": Review
+	}
 
 	def do_quit(self, arg):
 		""" quit method quits interpreter """
@@ -54,14 +63,12 @@ class HBNBCommand(cmd.Cmd):
 			print("** class name missing **")
 			return
 		class_name = args[0]
-		try:
-			module = importlib.import_module('models.base_model')
-			class_ = getattr(module, class_name)
-			instance = class_()
-			instance.save()
-			print(instance.id)
-		except AttributeError:
-			 print("** class doesn't exist **")
+		if class_name not in self.__classes:
+			print("** class doesn't exist **")
+			return
+		new_instance = self.__classes[class_name]()
+		new_instance.save()
+		print(new_instance.id)
 
 	def do_show(self, arg):
 		"""Show string representation of created instance"""
@@ -74,10 +81,7 @@ class HBNBCommand(cmd.Cmd):
 			return
 		class_name = args[0]
 		instance_id = args[1]
-		try:
-			module = importlib.import_module('models.base_model')
-			class_ = getattr(module, class_name)
-		except AttributeError:
+		if class_name not in self.__classes:
 			print("** class doesn't exist **")
 			return
 		all_obj = storage.all()
@@ -116,15 +120,12 @@ class HBNBCommand(cmd.Cmd):
 
 	def do_all(self, arg):
 		"""print all instances"""
-		args = arg.split()
+    args = arg.split()
 		if len(args) < 1:
 			print ("** class name missing **")
 			return
 		class_name = args[0]
-		try:
-			module = importlib.import_module('models.base_model')
-			class_ = getattr(module, class_name)
-		except AttributeError:
+		if class_name not in self.__classes:
 			print ("** class doesn't exist **")
 			return
 		all_obj = storage.all()
@@ -144,9 +145,7 @@ class HBNBCommand(cmd.Cmd):
 			obj_id = args[1]
 			attribute = args[2]
 			value = args[3]
-			module = importlib.import_module('models.base_model')
-			_class = getattr(module, class_name)
-			if _class:
+			if class_name not in self.__classes:
 				if obj_id in objs:
 					if attribute not in ['id', 'created_at', 'updated_at']:
 						if hasattr(objs[obj_id], attribute):
