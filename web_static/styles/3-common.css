@@ -9,3 +9,8 @@ body {
 main {
     min-height: calc(100vh - 130px);
 }
+
+head {
+    link rel: icon;
+    href: images/icon.png;
+}
